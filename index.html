@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button id="add">Add item</button>
+    </div>
+
+    <ul id="list">
+
+    </ul>
+
+    <script>
+      const list = document.querySelector('#list');
+      const item = document.querySelector('#item');
+      const button = document.querySelector("#add");
+      const body = document.querySelector('body');
+
+      button.addEventListener('click', addItem);
+      body.addEventListener('keydown', (e) => {
+        if ((e.key === "Enter") && (item.value != '')) {
+          addItem();
+        } else if (e.key === "Enter") {
+          item.focus();
+        }
+      });
+
+      function addItem() {
+        let currentItem = item.value;
+        item.value = '';
+
+        const listItem = document.createElement('li');
+        const itemSpan = document.createElement('span');
+        const delButton = document.createElement('button');
+
+        listItem.appendChild(itemSpan);
+        listItem.appendChild(delButton);
+
+        itemSpan.textContent = currentItem;
+        delButton.textContent = 'Delete';
+
+        list.appendChild(listItem);
+
+        delButton.addEventListener('click', () =>{
+          listItem.remove();
+        });
+
+        item.focus();
+      };
+
+    </script>
+  </body>
+</html>
